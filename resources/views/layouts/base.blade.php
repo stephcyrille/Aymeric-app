@@ -13,12 +13,23 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/customNav.css') }}" rel="stylesheet">
+    <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet" /> 	
 
     <!-- FontAwesome CSS -->
+    <link href="{{ asset('bootstrap-4/css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet"/>
 
     <!-- JQuery Script -->
     <script src="{{ asset('jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('DataTables/datatables.js') }}"></script> 	
+
+    <style>
+      .nav>li, .nav>li>a {
+            position: relative;
+            display: block;
+            width: 100%;
+        }         
+    </style>
 
 </head>
 <body>
@@ -30,13 +41,13 @@
     </header>
     <ul class="nav">
       <li>
-        <a href="#">
-          <i class="zmdi zmdi-view-dashboard"></i> Dashboard
+        <a href="{{ route('home') }}">
+          <i class="zmdi zmdi-view-dashboard"></i> Accueil
         </a>
       </li>
       <li>
-        <a href="#">
-          <i class="zmdi zmdi-link"></i> Shortcuts
+        <a href="{{ route('all_services') }}">
+          <i class="zmdi zmdi-link"></i> Services
         </a>
       </li>
       <li>
