@@ -22,13 +22,25 @@
     <!-- JQuery Script -->
     <script src="{{ asset('jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('DataTables/datatables.js') }}"></script> 	
+    
+    @yield('customCSS')
 
     <style>
       .nav>li, .nav>li>a {
             position: relative;
             display: block;
             width: 100%;
-        }         
+        }     
+        body{
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+          font-size: 1.5rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #212529;
+          text-align: left;
+          background-color: #fff;
+        }    
     </style>
 
 </head>
@@ -42,37 +54,37 @@
     <ul class="nav">
       <li>
         <a href="{{ route('home') }}">
-          <i class="zmdi zmdi-view-dashboard"></i> Accueil
+          Accueil
         </a>
       </li>
       <li>
         <a href="{{ route('all_services') }}">
-          <i class="zmdi zmdi-link"></i> Services
+          Services
         </a>
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-widgets"></i> Overview
+          Taches
         </a>
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-calendar"></i> Events
+          Equipements
         </a>
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-info-outline"></i> About
+          Fiches de rapport
         </a>
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-settings"></i> Services
+          Gestion des utilisateurs
         </a>
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-comment-more"></i> Contact
+          Paramètres
         </a>
       </li>
     </ul>
@@ -103,5 +115,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @yield('customJS')
 </body>
 </html>
