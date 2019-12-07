@@ -18,7 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/services/all', 'ServiceController@allServices')->name('all_services');
-Route::get('/services/add', 'ServiceController@addService')->name('add_service');
 Route::get('/persons/add', 'PersonneController@addForm')->name('add_person_form');
 Route::post('/persons/add', 'PersonneController@import')->name('import_person');
+Route::get('/tache','TacheController@show');

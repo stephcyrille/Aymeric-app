@@ -115,8 +115,8 @@ const templates = {
     defaultView: 'month',
     template: templates,
     taskView: ['task'],
-    useCreationPopup: true,
-    useDetailPopup: true,
+    // useCreationPopup: true,
+    // useDetailPopup: true,
     timezones: [{
         timezoneOffset: 540,
         // displayLabel: 'GMT+09:00',
@@ -131,27 +131,27 @@ const templates = {
         timezonesCollapsed: false
     }
 });
-// calendar.createSchedules([
-//     {
-//         id: '1',
-//         calendarId: '1',
-//         title: 'my schedule',
-//         category: 'time',
-//         dueDateClass: '',
-//         start: '2019-11-18T22:30:00+09:00',
-//         end: '2019-11-30T02:30:00+09:00'
-//     },
-//     {
-//         id: '2',
-//         calendarId: '1',
-//         title: 'second schedule',
-//         category: 'time',
-//         dueDateClass: '',
-//         start: '2018-01-18T17:30:00+09:00',
-//         end: '2018-01-19T17:31:00+09:00',
-//         isReadOnly: true    // schedule is read-only
-//     }
-// ]);
+cal.createSchedules([
+    {
+        id: '1',
+        calendarId: '1',
+        title: 'my schedule',
+        category: 'time',
+        dueDateClass: '',
+        start: '2019-12-18T22:30:00+09:00',
+        end: '2019-12-30T02:30:00+09:00'
+    },
+    {
+        id: '2',
+        calendarId: '1',
+        title: 'second schedule',
+        category: 'time',
+        dueDateClass: '',
+        start: '2018-01-18T17:30:00+09:00',
+        end: '2018-01-19T17:31:00+09:00',
+        isReadOnly: true    // schedule is read-only
+    }
+]);
 
 cal.on({
     'clickSchedule': function(e) {

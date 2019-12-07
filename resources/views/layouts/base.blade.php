@@ -58,11 +58,6 @@
         </a>
       </li>
       <li>
-        <a href="{{ route('all_services') }}">
-          Services
-        </a>
-      </li>
-      <li>
         <a href="#">
           Taches
         </a>
