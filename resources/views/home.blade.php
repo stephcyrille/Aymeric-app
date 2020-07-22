@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container" style="opacity: 90%;">
     {{-- <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -29,6 +29,22 @@
     <div class="row">
         <div class="container theme-showcase">
             <h1>Calendrier</h1>
+<!--            calndar control buttons            -->
+            <div id="" class="row">
+                <span id="menu-navi">
+                    
+                    <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+                    
+                    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+                        <span class="calendar-icon ic-arrow-line-left" data-action="move-prev">prev</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+                        <span class="calendar-icon ic-arrow-line-right" data-action="move-next">next</span>
+                    </button>
+                </span>
+                <span id="renderRange" class="render-range"></span>
+            </div>
+            
             <div id="calendar" class="container" ></div>
         </div>
     </div>
@@ -43,6 +59,7 @@
 <script src="{{ asset('calendar/js/tui-time-picker.min.js') }}"></script>
 <script src="{{ asset('calendar/js/tui-date-picker.min.js') }}"></script>
 <script src="{{ asset('calendar/js/tui-calendar.js') }}"></script>
+<script src="{{ asset('js/moment-with-locales.js') }}"></script>
 
 <script>
 
@@ -75,15 +92,22 @@ const templates = {
       return 'Update';
     },
     popupDetailDate: function(isAllDay, start, end) {
-      var isSameDate = moment(start).isSame(end);
-      var endFormat = (isSameDate ? '' : 'YYYY.MM.DD ') + 'hh:mm a';
-
-      if (isAllDay) {
-        return moment(start).format('YYYY.MM.DD') + (isSameDate ? '' : ' - ' + moment(end).format('YYYY.MM.DD'));
-      }
-
-      return (moment(start).format('YYYY.MM.DD hh:mm a') + ' - ' + moment(end).format(endFormat));
+      console.log("date start pop", start)
+      console.log("date end pop", end)
+      return 'De : ' + start._date.toLocaleDateString() + ' à ' + end._date.toLocaleDateString()
     },
+    // popupDetailDate: function(isAllDay, start, end) {
+    //   console.log("date start pop", start)
+    //   console.log("date end pop", end)
+    //   var isSameDate = moment(start).isSame(end);
+    //   var endFormat = (isSameDate ? '' : 'YYYY.MM.DD ') + 'hh:mm a';
+
+    //   if (isAllDay) {
+    //     return moment(start).format('YYYY.MM.DD') + (isSameDate ? '' : ' - ' + moment(end).format('YYYY.MM.DD'));
+    //   }
+
+    //   return (moment(start).format('YYYY.MM.DD hh:mm a') + ' - ' + moment(end).format(endFormat));
+    // },
     popupDetailLocation: function(schedule) {
       return 'Location : ' + schedule.location;
     },
@@ -97,7 +121,7 @@ const templates = {
       return 'Repeat : ' + schedule.recurrenceRule;
     },
     popupDetailBody: function(schedule) {
-      return 'Body : ' + schedule.body;
+      return 'Responsable : ' + '<i style="font-weight: bold">' + schedule.body + '</i>';
     },
     popupEdit: function() {
       return 'Edit';
@@ -116,7 +140,7 @@ const templates = {
     template: templates,
     taskView: ['task'],
     // useCreationPopup: true,
-    // useDetailPopup: true,
+    useDetailPopup: true,
     timezones: [{
         timezoneOffset: 540,
         // displayLabel: 'GMT+09:00',
@@ -131,45 +155,58 @@ const templates = {
         timezonesCollapsed: false
     }
 });
-cal.createSchedules([
-    {
-        id: '1',
+
+$.ajax({
+  type: "GET",
+  url: "api/taches/liste",
+  success: function(data){
+    var dataAray = $.parseJSON(data);
+    console.log('Task', dataAray)
+    var schedule = []
+    $.each(dataAray, function(i, val){
+      console.log('momentJs test', moment(val.date_debut).format())
+      let d1 = new Date(val.date_debut);
+      let d2 = new Date(val.date_fin);
+      let single = {
+        id: val.id,
         calendarId: '1',
-        title: 'my schedule',
+        title: val.libelle,
+        body: val.responsable.nom,
+        location: "Douala",
         category: 'time',
         dueDateClass: '',
-        start: '2019-12-18T22:30:00+09:00',
-        end: '2019-12-30T02:30:00+09:00'
-    },
-    {
-        id: '2',
-        calendarId: '1',
-        title: 'second schedule',
-        category: 'time',
-        dueDateClass: '',
-        start: '2018-01-18T17:30:00+09:00',
-        end: '2018-01-19T17:31:00+09:00',
-        isReadOnly: true    // schedule is read-only
-    }
-]);
+        start: moment(val.date_debut).format(),
+        end: moment(val.date_fin).format(),
+        isReadOnly: true
+      }
+
+      schedule.push(single);
+      cal.createSchedules([single]);
+    })
+    console.log('schedule', schedule)
+    
+  }
+})
+
+// 2019-12-18T22:30:00+09:00
 
 cal.on({
-    'clickSchedule': function(e) {
-        console.log('clickSchedule', e);
-        var schedule = event.schedule;
+    // 'clickSchedule': function(e) {
+    //     console.log('clickSchedule', e);
+    //     var schedule = event.schedule;
 
-        // focus the schedule
-        if (lastClickSchedule) {
-            cal.updateSchedule(lastClickSchedule.id, lastClickSchedule.calendarId, {
-                isFocused: false
-            });
-        }
-        cal.updateSchedule(schedule.id, schedule.calendarId, {
-            isFocused: true
-        });
+    //     // focus the schedule
+    //     if (lastClickSchedule) {
+    //         cal.updateSchedule(lastClickSchedule.id, lastClickSchedule.calendarId, {
+    //             isFocused: false
+    //         });
+    //     }
+    //     cal.updateSchedule(schedule.id, schedule.calendarId, {
+    //         isFocused: true
+    //     });
 
-        lastClickSchedule = schedule;
-    },
+    //     lastClickSchedule = schedule;
+    // },
     'beforeCreateSchedule': function(event) {
         console.log('beforeCreateSchedule', event);
         // var startTime = event.start;

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Excel;
 
 use App\Personne;
-
+use App\User;
+use App\Profile;
 
 class PersonneController extends Controller
 {
@@ -70,5 +71,41 @@ class PersonneController extends Controller
         }
 
         return redirect()->route('all_persons');
+    }
+
+
+    
+
+    public function poster(){
+        
+
+        $data = request()->validate([
+         'name' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'telephone' => 'required|string|min:9',
+            'adresse' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        
+        // dd($data); 
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+
+        Profile::create([
+            'nom' => $data['nom'],
+            'prenom' => $data['prenom'],
+            'email' => $data['email'],
+            'telephone' => $data['telephone'],
+            'role' => 'Technicien',
+            'user_id' => $user->id,
+            'adresse' => $data['adresse'],
+        ]);
+
+        return redirect()->route('liste_profiles');
     }
 }

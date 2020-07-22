@@ -44,12 +44,18 @@
     </style>
 
 </head>
-<body>
+<body style="background-image : url('{{ url('/../fond.jpg') }}'); background-attachment:fixed;">
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">
     <header>
-      <a href="#">My App</a>
+    	<b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="{{ url('http://localhost/aymeric/public/logo.png') }}" height="35" width="50" alt="homepage" class="dark-logo" />
+                            
+                        </b>
+      <a href="#">GMAO ASECNA</a>
     </header>
     <ul class="nav">
       <li>
@@ -58,12 +64,12 @@
         </a>
       </li>
       <li>
-        <a href="#">
-          Taches
+        <a href="{{ route('liste_taches') }}">
+          Ordre de travail
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="{{ route('liste_equipements') }}">
           Equipements
         </a>
       </li>
@@ -72,9 +78,20 @@
           Fiches de rapport
         </a>
       </li>
+      <?php $role = Auth::user()->profile->role;
+      if ($role=="Technicien"){}else{
+      	?>
       <li>
-        <a href="#">
+        <a href="{{ route('liste_profiles') }}">
           Gestion des utilisateurs
+        </a>
+      </li>
+      <?php
+       }
+      ?>
+      <li>
+        <a href="{{ route('analytic') }}">
+          Analytic
         </a>
       </li>
       <li>
@@ -86,22 +103,63 @@
   </div>
   <!-- Content -->
   <div id="content">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-user"></i>
-              Test User
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Branding Image -->
+                    
+                </div>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-left">
+                        <form class="form-inline my-2 my-lg-0">
+                            <li><input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></li>
+                            <li><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></li>
+                        </form>
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    {{ Auth::user()->name }}, 
+                                    {{ Auth::user()->profile->role }}
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
     <div class="container-fluid">
       @yield('content')
     </div>

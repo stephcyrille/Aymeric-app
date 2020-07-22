@@ -13,11 +13,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body  style="background-image : url('http://localhost/aymeric/public/fond.jpg'); background-attachment:fixed; background-position: center;background-repeat: no-repeat;">
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top;">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar-header" style="margin: 25px,0px,25px,0px;padding-bottom: 15px;">
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -26,10 +26,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="http://localhost/aymeric/public/logo.png" height="45" width="45" alt="homepage" class="dark-logo" />
+                            
+                        </b>
+                        <strong style="font-face: roboto">GMAO ASECNA</strong>
                     </a>
                 </div>
 
@@ -44,7 +51,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <!--<li><a href="{{ route('register') }}">Register</a></li>-->
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>

@@ -15,7 +15,7 @@ class CreateCategoryEqupementsTable extends Migration
     {
         Schema::create('category_equpements', function (Blueprint $table) {
             $table->increments('id');
-            $table->no('id');
+            $table->string('nom');
             $table->timestamps();
         });
     }

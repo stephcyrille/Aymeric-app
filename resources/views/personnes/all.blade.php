@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="opacity: 90%;">
         <div class="col">
         <h3>Tous les Services</h3>
             <a href="{{ route('add_service') }}" class="btn btn-primary">

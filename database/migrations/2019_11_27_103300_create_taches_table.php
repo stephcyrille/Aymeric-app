@@ -19,7 +19,6 @@ class CreateTachesTable extends Migration
             $table->string('description');
             $table->datetime('date_debut');
             $table->datetime('date_fin');
-            $table->integer('frequence');
             $table->integer('responsable_id');
             $table->foreign('responsable_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->integer('equipement_id');
