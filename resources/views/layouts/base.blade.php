@@ -18,7 +18,7 @@
     <!-- FontAwesome CSS -->
     <link href="{{ asset('bootstrap-4/css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <!-- JQuery Script -->
     <script src="{{ asset('jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('DataTables/datatables.js') }}"></script> 	
@@ -74,7 +74,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="{{ route('liste_rapport') }}">
           Fiches de rapport
         </a>
       </li>

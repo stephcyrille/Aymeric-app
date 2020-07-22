@@ -40,3 +40,6 @@ Route::get('/gestion/profiles/{id}/modifier','GestionProfilesController@formulai
 Route::patch('/gestion/profiles/{id}/modifier','GestionProfilesController@modifier')->name('mis_a_jour_profile');
 
 Route::post('/persons/formulaire/ajout','PersonneController@poster')->name('post_personne');
+
+Route::get('/rapport/liste','FicheRapportController@liste')->name('liste_rapport');
+Route::get('/rapports/formulaire/ajout','FicheRapportController@ajouter')->name('ajout_rapport');
